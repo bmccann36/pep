@@ -1,7 +1,7 @@
 const ogData = require('./data/cookieTable.js')
 
-console.log(findBestSellers(ogData, 37))
 
+console.log(findBestSellers(ogData, 21))
 
 function findBestSellers(data, zone) {
   // INSTANTIATE AN EMPTY GRID FOR STORING SALE DATA
@@ -22,10 +22,13 @@ function findBestSellers(data, zone) {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
       if (grid[i][j]) {
+        if (grid[i][j].length > 2) console.log(i, j) // where are there three ?
         grid[i][j] = reduceSales(grid[i][j])
+
       }
     }
   }
+
   // CONVERT INTEGER TO GRID COORDINATES
   const up = Math.floor(zone / 10)
   const over = zone % 10
