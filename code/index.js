@@ -34,19 +34,36 @@ data.forEach(sale => {
 
 })
 
-console.log(grid)
+// const zone55 = (grid[5][5])
+// console.log(zone55)
+// console.log(reduceSales(zone55))
 
-// data.forEach(entry => {
-//   let up = calcUp(entry.lat)
-//   let over = calcOver(entry.lon)
-// if (grid[up] && grid[up][over]) { // is something is there push into it
-//   grid[up][over].push(entry)
-// }
-// else { // if no array yet create one with entry as first element
-//   // console.log('up and over', up, over)
-//   grid[up][over] = [entry]
-// }
-// })
+
+// transform grid so that each spot contains the top five crimes for that location
+for (let i = 0; i < grid.length; i++) {
+  for (let j = 0; j < grid[i].length; j++) {
+    if (grid[i][j]) {
+      grid[i][j] = reduceSales(grid[i][j])
+    }
+  }
+}
+
+console.log(grid[1][9])
+
+// TAKES IN A LIST OF CRIMES GIVES BACK THE TOP FIVE MOST OCCURING AND THEIR FREQ
+function reduceSales(zone) {
+  let report = {}
+  // sales.filter(sale => sale !== undefined)
+  zone.forEach(sale => {
+    report[sale.type] ? report[sale.type] += sale.quantity : report[sale.type] = sale.quantity // create or add to the quantiy of that cookie
+  })
+  var props = Object.keys(report).map(function (sale) {
+    return { sale: sale, value: this[sale] };
+  }, report);
+  props.sort(function (p1, p2) { return p2.value - p1.value; });
+  return props.slice(0, 3);
+  // return report
+}
 
 
 function calcUp(lat) {
