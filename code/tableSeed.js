@@ -5,9 +5,8 @@ let cookieTypes = ['Thin Mints', 'Caramel deLites', 'Peanut Butter Sandwich', 'P
 
 
 function generateSales() {
-  // console.log('running')
   let table = []
-  for (let i = 0; i < 100; i++) { // 100 for now
+  for (let i = 0; i < 1000; i++) { // 100 for now
     let sale = {}
     sale.type = cookieTypes[getRandomInt(0, 10)]
     sale.quantity = getRandomInt(1, 6)
@@ -20,20 +19,18 @@ function generateSales() {
   return table
 }
 
-const table = generateSales()
-
-// console.log(table.slice(0, 5))
-
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+  return Math.floor(Math.random() * (max - min)) + min;
 }
-
+ //The maximum is exclusive and the minimum is inclusive
 
 function makeNum(min, max, fixed) {
   let num = Math.random() * (max - min) + min;
-  return num.toFixed(fixed)
+  return +num.toFixed(fixed)
 }
 
-module.exports = {table}
+const table = generateSales()
+
+module.exports = { table }

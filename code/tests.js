@@ -24,11 +24,32 @@ describe("Basic Tests", function () {
 })
 
 
-Test.assertEquals(findBestSellers(preloaded,66),'')
-Test.assertEquals(findBestSellers(preloaded,91),'Lemonades, Trios')
-Test.assertEquals(findBestSellers(preloaded,53),'Thin Mints')
-Test.assertEquals(findBestSellers(preloaded,55),'Caramel deLites, Girl Scout Smores, Lemonades')
-Test.assertEquals(findBestSellers(preloaded,21),'Shortbread, Lemonades, Thin Mints')
+Test.describe("Random Tests:", function () {
+  for (let i = 0; i < 5; i++) {
+    const testData = generateSales()
+    const num = getRandomInt(1, 100)
+    const correct = checkBestSellers(testData)
+    it('passes with randomly generated data', function () {
+      Test.assertEquals(findBestSellers(testData, num), correct)
+    })
+  }
+}
+
+
+// function getRandomInt(min, max) {
+//   min = Math.ceil(min);
+//   max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min)) + min;
+// }
+
+
+
+
+// Test.assertEquals(findBestSellers(preloaded,66),'')
+// Test.assertEquals(findBestSellers(preloaded,91),'Lemonades, Trios')
+// Test.assertEquals(findBestSellers(preloaded,53),'Thin Mints')
+// Test.assertEquals(findBestSellers(preloaded,55),'Caramel deLites, Girl Scout Smores, Lemonades')
+// Test.assertEquals(findBestSellers(preloaded,21),'Shortbread, Lemonades, Thin Mints')
 
 
 
