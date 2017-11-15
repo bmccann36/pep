@@ -1,44 +1,34 @@
 const randomData = require('./tableSeed').table
 
-// const data = require('./cookieTable')
+const constData = require('./cookieTable')
 
-//THERE IS NO ZONE 0 !!
-
-findTopSellers(randomData, 50)
+console.log(findTopSellers(constData, 49))
 
 function findTopSellers(data, zone) {
-  const loc = zone - 1  // make it easier to deal with in arrays etc..
+  const loc = zone - 1  // CONVERT TO 0 INDEXED SYSTEM
   const row = (Math.floor(loc / 10))
   const column = (loc % 10)
-  // console.log(column)
+  // SET THE LAT / LON RANGE OF OUR SEARCH
   const searchLat = 40 + row / 10
   const searchLon = -91 + column / 10
-  // console.log('searchLon', searchLon, searchLon + 0.09)
-  // console.log('searchLat', searchLat, searchLat + 0.09)
-
-  const matchingSales = data.filter(entry => {
+//FILTER DATA SET TO ONLY INCLUDE SALES FOR THE INPUT ZONE
+ const matchingSales = data.filter(entry => {
     return (
       entry.lat >= searchLat && entry.lat < searchLat + 0.09 &&
       entry.lon >= searchLon && entry.lon < searchLon + 0.09
     )
   })
-
+  // CREATE A 'REPORT' LISTING ALL COOKIE VARITIES SOLD AND THE QUANTITY SOLD
+  let report = {}
+  matchingSales.forEach(sale => {
+    report[sale.type] ? report[sale.type] += sale.quantity : report[sale.type] = sale.quantity // create or add to the quantiy of that
+  })
+  // MODIFY REPORT STRUCTURE SO THAT WE CAN SORT ON QUANTITY
+  let topSellers = Object.keys(report).map(function (sale) {
+    return { sale: sale, value: this[sale] }
+  }, report)
+  topSellers.sort(function (p1, p2) { return p2.value - p1.value; })
+  topSellers = topSellers.slice(0, 3)
+  // JUST RETURN THE NAMES OF THE TOP SELLERS
+  return topSellers.map(el => el.sale).join(', ')
 }
-
-
-
-
-
-// returns a lat lon reference obj
-function latLonCreator(zone) {
-  const row = (Math.floor(zone / 10))
-  const column = (zone % 10)
-  const searchLat = 40 + row / 10
-  const searchLon = -91 + column / 10
-
-}
-
-
-
-// Your task is to combine this GPS and cookie sales information then map it to the 10x10 grid that the Scouts are using to distribute thier sales force. Each square or 'zone' in the grid will be assigned a number from 1-100. The number will grow from the bottom left to the top right corner. For the purpose of this problem the min and max coordinates will be as follows
-// latitude 40,41(inclusive) longitude -91,-90 (inclusive)
