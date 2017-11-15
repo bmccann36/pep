@@ -4,26 +4,25 @@ const randomData = require('./tableSeed').table
 
 //THERE IS NO ZONE 0 !!
 
-findTopSellers(randomData, 1)
+findTopSellers(randomData, 50)
 
 function findTopSellers(data, zone) {
   const loc = zone - 1  // make it easier to deal with in arrays etc..
-  const row = (Math.floor(zone / 10))
-  const column = (zone % 10)
+  const row = (Math.floor(loc / 10))
+  const column = (loc % 10)
   // console.log(column)
   const searchLat = 40 + row / 10
   const searchLon = -91 + column / 10
-  console.log('searchLon', searchLon, searchLon + 0.09)
-  console.log('searchLat', searchLat, searchLat + 0.09)
+  // console.log('searchLon', searchLon, searchLon + 0.09)
+  // console.log('searchLat', searchLat, searchLat + 0.09)
+
   const matchingSales = data.filter(entry => {
     return (
-      // entry.lat >= searchLat && entry.lat < searchLat + 0.09 &&
+      entry.lat >= searchLat && entry.lat < searchLat + 0.09 &&
       entry.lon >= searchLon && entry.lon < searchLon + 0.09
     )
   })
-  // console.log(matchingSales)
 
-  // loop through data and find all where it matches zone
 }
 
 
