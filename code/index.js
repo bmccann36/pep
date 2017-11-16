@@ -2,15 +2,19 @@ const randomData = require('./tableSeed').table
 
 const constData = require('./cookieTable')
 
-console.log(findTopSellers(constData, 49))
+// findTopSellers(randomData, 10)
+console.log(findTopSellers(constData, 2))
 
 function findTopSellers(data, zone) {
   const loc = zone - 1  // CONVERT TO 0 INDEXED SYSTEM
   const row = (Math.floor(loc / 10))
   const column = (loc % 10)
+  console.log('colomn', column + 1)
   // SET THE LAT / LON RANGE OF OUR SEARCH
-  const searchLat = 40 + row / 10
-  const searchLon = -91 + column / 10
+  const searchLat = 40 + row / 10  // up + down
+  const searchLon = -91 + column / 10  // across
+  // console.log('searchLon', searchLon, searchLon + 0.09)
+  console.log('searchLat',searchLat, searchLat + .09)
 //FILTER DATA SET TO ONLY INCLUDE SALES FOR THE INPUT ZONE
  const matchingSales = data.filter(entry => {
     return (
@@ -19,6 +23,7 @@ function findTopSellers(data, zone) {
     )
   })
   // CREATE A 'REPORT' LISTING ALL COOKIE VARITIES SOLD AND THE QUANTITY SOLD
+  // console.log('matching sales', matchingSales )
   let report = {}
   matchingSales.forEach(sale => {
     report[sale.type] ? report[sale.type] += sale.quantity : report[sale.type] = sale.quantity // create or add to the quantiy of that
