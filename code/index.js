@@ -3,7 +3,7 @@ const randomData = require('./tableSeed').table
 const constData = require('./cookieTable')
 
 // findTopSellers(randomData, 10)
-console.log(findTopSellers(constData, 21))
+findTopSellers(constData, 77)
 
 function findTopSellers(data, zone) {
   const loc = zone - 1  // CONVERT TO 0 INDEXED SYSTEM
