@@ -1,3 +1,15 @@
+// change decimals
+const chalk = require('chalk')
+const constData = require('./cookieTable')
+
+constData.forEach(entry => {
+  entry.lat = +entry.lat.toFixed(2)
+  entry.lon = +entry.lon.toFixed(2)
+})
+
+const newData = constData
+
+module.exports = {newData}
 
 
 

@@ -2,10 +2,10 @@
 const chalk = require('chalk')
 var fs = require('fs');
 
-const table = require('./tableSeed').table // all we care about is the data portion
+const table = require('./index').newData
 
 
-fs.writeFile('./cookieTable.js', JSON.stringify(table, null, 2), (err) => {
+fs.writeFile('./cookieTable2.js', JSON.stringify(table, null, 2), (err) => {
   if (err) {
     console.error(err);
     return;
